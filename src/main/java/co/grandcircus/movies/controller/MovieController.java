@@ -5,6 +5,7 @@
 package co.grandcircus.movies.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,6 +108,22 @@ public class MovieController {
 
 		logger.info("POST /movies/create -> redirect to /movies");
 		return "redirect:/movies";
+	}
+	/**
+	 * display all categories
+	 * @param model
+	 * @param category
+	 * @return
+	 */
+	
+	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	public String listCategories(Model model, @RequestParam(value="category", required=false) String category) {
+		Set<String> categories;
+		 categories = movieDao.getAllCategories();
+		model.addAttribute("categories", categories);
+	   
+		logger.info("/categories -> category-list.jsp");
+		return "category-list";
 	}
 
 }
